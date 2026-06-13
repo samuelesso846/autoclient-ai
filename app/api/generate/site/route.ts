@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
-import { openai } from "@/lib/openai";
+import OpenAI from "openai";
 import { sitePrompt } from "@/lib/prompts/site";
 import { supabaseAdmin } from "@/lib/supabase";
 
 export async function POST(req: Request) {
+  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
   const body = await req.json();
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
